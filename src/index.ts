@@ -10,7 +10,7 @@ function main() {
     }
 
     let popupRemoved = false;
-    let lastCheck: number = 0;
+    let lastCheck = 0;
 
     const observer = new MutationObserver(check);
 
@@ -21,7 +21,7 @@ function main() {
 
     check();
 
-    function check() {
+    function check(): void {
         setTimeout(() => {
             if (!popupRemoved && Date.now() - lastCheck > 50) {
                 lastCheck = Date.now();
