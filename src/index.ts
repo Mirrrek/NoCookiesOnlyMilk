@@ -9,10 +9,9 @@ function main() {
         return;
     }
 
-    let popupRemoved = false;
     let lastCheck = 0;
 
-    const observer = new MutationObserver(check);
+    const observer = new MutationObserver((mutation) => mutation.some((r) => r.addedNodes.length > 0) && check());
 
     observer.observe(document.body, {
         subtree: true,
@@ -23,10 +22,9 @@ function main() {
 
     function check(): void {
         setTimeout(() => {
-            if (!popupRemoved && Date.now() - lastCheck > 50) {
+            if (Date.now() - lastCheck > 50) {
                 lastCheck = Date.now();
-                popupRemoved = removePopup();
-                popupRemoved && observer.disconnect();
+                removePopup();
             }
         }, 55);
     }
@@ -38,7 +36,7 @@ function isAllowedHost(): boolean {
 }
 
 function removePopup(): boolean {
-    return libraries.some((library) => {
+    return libraries.map((library) => {
         if (library.url !== undefined && !library.url.test(window.location.href)) {
             return null;
         }
@@ -56,7 +54,7 @@ function removePopup(): boolean {
         }
 
         return element !== null;
-    });
+    }).some((removed) => removed);
 }
 
 function getElement(identifier: ElementIdentifier): HTMLElement | null {
