@@ -1,0 +1,18 @@
+{
+  "name": "no-cookies-only-milk",
+  "version": "1.0.0",
+  "description": "Remove annoying cookie popups from websites.",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "webpack --mode=development",
+    "build": "webpack --mode=production"
+  },
+  "author": "Mirrrek",
+  "license": "ISC",
+  "devDependencies": {
+    "copy-webpack-plugin": "^12.0.2",
+    "ts-loader": "^9.5.1",
+    "webpack": "^5.92.1",
+    "webpack-cli": "^5.1.4"
+  }
+}
