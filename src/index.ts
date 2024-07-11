@@ -46,12 +46,13 @@ function removePopup(): boolean {
         const element = getElement(library);
 
         if (element) {
-            log('INFO', 'Popup element removed');
-            element.style.display = 'none';
+            element.remove();
 
             if (library.bodyScroll === false) {
                 document.body.style.removeProperty('overflow');
             }
+
+            log('INFO', 'Popup element removed');
         }
 
         return element !== null;
