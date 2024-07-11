@@ -17,7 +17,8 @@ export type Library = {
 } & ElementIdentifier;
 
 export const libraries: Library[] = [
-    {
-        popupID: 'onetrust-consent-sdk'
-    }
+    { popupClass: 'fc-consent-root' },
+    { popupID: 'onetrust-consent-sdk' },
+    { popupID: 'uniccmp' },
+    { popupClass: 'cookie-consent' }
 ]
