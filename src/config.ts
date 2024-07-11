@@ -1,7 +1,8 @@
-export type AllowedUrl = RegExp;
+export type AllowedHost = { hostname: string, subdomains?: boolean };
 
-export const allowedUrls: AllowedUrl[] = [
-    // Nothing for now
+export const allowedHosts: AllowedHost[] = [
+    { hostname: 'google.com', subdomains: true },
+    { hostname: 'youtube.com', subdomains: true }
 ]
 
 export type ElementIdentifier = {

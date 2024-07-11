@@ -1,11 +1,11 @@
-import { allowedUrls, libraries, ElementIdentifier } from '@/config';
+import { allowedHosts, libraries, ElementIdentifier } from '@/config';
 import log from '@/log';
 
 main();
 
 function main() {
-    if (isAllowedUrl()) {
-        log('INFO', 'Current URL is allowed');
+    if (isAllowedHost()) {
+        log('INFO', 'Current host is allowed');
         return;
     }
 
@@ -32,10 +32,9 @@ function main() {
     }
 }
 
-function isAllowedUrl(): boolean {
-    const currentUrl = window.location.href;
-    const isAllowed = allowedUrls.some((allowedUrl) => allowedUrl.test(currentUrl));
-    return isAllowed;
+function isAllowedHost(): boolean {
+    return allowedHosts.some((allowedHost) => window.location.hostname === allowedHost.hostname ||
+        (allowedHost.subdomains && window.location.hostname.endsWith(`.${allowedHost.hostname}`)));
 }
 
 function removePopup(): boolean {
