@@ -67,6 +67,9 @@ function getElement(identifier: ElementIdentifier): HTMLElement | null {
         if (elements.length > 1) {
             log('WARN', `Found more than one element with class "${identifier.popupClass}"`);
         }
+        if (elements.length === 0) {
+            return null;
+        }
         const element = elements[0];
         if (!(element instanceof HTMLElement)) {
             log('ERROR', `Element with class "${identifier.popupClass}" is not an HTMLElement`);
