@@ -55,26 +55,23 @@ function removePopup(): boolean {
 }
 
 function getElement(identifier: ElementIdentifier): HTMLElement | null {
-    if ('popupID' in identifier) {
-        return document.getElementById(identifier.popupID);
-    }
-    if ('popupClass' in identifier) {
-        const elements = document.getElementsByClassName(identifier.popupClass);
-        if (elements.length > 1) {
-            log('WARN', `Found more than one element with class "${identifier.popupClass}"`);
-        }
-        if (elements.length === 0) {
-            return null;
-        }
-        const element = elements[0];
-        if (!(element instanceof HTMLElement)) {
-            log('ERROR', `Element with class "${identifier.popupClass}" is not an HTMLElement`);
-            return null;
-        }
-        return element ?? null;
+    const elements = identifier.value instanceof RegExp ?
+        [...document.querySelectorAll(`${identifier.tag ?? '*'}[${identifier.property}]`)].filter((element) => (RegExp)(identifier.value).test(element.getAttribute(identifier.property) ?? '')) :
+        [...document.querySelectorAll(`${identifier.tag ?? '*'}[${identifier.property}="${identifier.value}"]`)];
+
+    if (elements.length > 1) {
+        log('WARN', `Found more than one element with "${identifier.property}" set to "${identifier.value}"`);
     }
 
-    log('ERROR', 'Invalid library configuration');
+    if (elements.length === 0) {
+        return null;
+    }
 
-    return null;
+    const element = elements[0];
+    if (!(element instanceof HTMLElement)) {
+        log('ERROR', `Element with "${identifier.property}" set to "${identifier.value}" is not an HTMLElement`);
+        return null;
+    }
+
+    return element ?? null;
 }

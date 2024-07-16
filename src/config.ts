@@ -6,9 +6,9 @@ export const allowedHosts: AllowedHost[] = [
 ]
 
 export type ElementIdentifier = {
-    popupID: string;
-} | {
-    popupClass: string;
+    tag?: string;
+    property: string;
+    value: string | RegExp;
 }
 
 export type Library = {
@@ -16,12 +16,14 @@ export type Library = {
 } & ElementIdentifier;
 
 export const libraries: Library[] = [
-    { popupClass: 'fc-consent-root' },
-    { popupID: 'onetrust-consent-sdk' },
-    { popupID: 'usercentrics-root' },
-    { popupID: 'iubenda-cs-banner' },
-    { popupID: 'uniccmp' },
-    { popupClass: 'cookieChoiceInfo' },
-    { popupClass: 'avia-cookie-consent-wrap' },
-    { popupClass: 'cookie-consent' }
+    { property: 'class', value: 'fc-consent-root' },
+    { property: 'id', value: 'onetrust-consent-sdk' },
+    { property: 'id', value: 'usercentrics-root' },
+    { property: 'id', value: 'iubenda-cs-banner' },
+    { property: 'id', value: 'qc-cmp2-container' },
+    { property: 'id', value: 'uniccmp' },
+    { property: 'class', value: 'cookieChoiceInfo' },
+    { property: 'class', value: 'avia-cookie-consent-wrap' },
+    { property: 'class', value: 'cookie-consent' },
+    { tag: 'iframe', property: 'src', value: /^https?\:\/\/cdn.privacy-mgmt.com\// }
 ]
